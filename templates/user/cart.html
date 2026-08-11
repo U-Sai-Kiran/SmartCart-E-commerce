@@ -1,0 +1,450 @@
+{% extends "user/base.html" %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-header bg-primary text-white">
+
+                    <h3 class="mb-0">
+                        <i class="fas fa-shopping-cart"></i>
+                        Shopping Cart
+                    </h3>
+
+                </div>
+
+                <div class="card-body">
+
+                    {% if cart_items %}
+
+                    <form action="{{ url_for('cart') }}" method="POST">
+
+                    <div class="table-responsive">
+
+                        <table class="table align-middle">
+
+                            <thead>
+
+                                <tr>
+                                    <!-- <th>
+                                        <input type="checkbox" id="selectAll">
+                                    </th> -->
+
+                                    <th>Product</th>
+
+                                    <th>Price</th>
+
+                                    <th>Quantity</th>
+
+                                    <th>Total</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                            {% for item in cart_items %}
+
+                            <tr>
+
+                                <td>
+                                    
+                                    <div class="d-flex align-items-center">
+
+                                        <input type="checkbox"
+                                            class="form-check-input me-3 cart-check"
+                                            name="selected_items"
+                                            value="{{ item.product_id }}"
+                                            data-price="{{ item.price * item.quantity }}">
+
+
+                                        <img src="{{ url_for('static',
+                                        filename='uploads/product_images/' + item.image) }}"
+                                        width="90"
+                                        height="90"
+                                        class="rounded border me-3"
+                                        style="object-fit:cover;">
+
+                                        <div>
+
+                                            <h5 class="mb-1">
+
+                                                {{ item.name }}
+
+                                            </h5>
+
+                                            <span class="badge bg-primary">
+
+                                                {{ item.category }}
+
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    <strong class="text-success">
+
+                                        ₹{{ item.price }}
+
+                                    </strong>
+
+                                </td>
+
+                                <td>
+
+                                    <div class="d-flex align-items-center">
+
+                                        <a href="{{ url_for('decrease_quantity',
+                                                    product_id=item.product_id) }}"
+                                           class="btn btn-outline-secondary btn-sm">
+
+                                            -
+
+                                        </a>
+
+                                        <input type="text"
+                                               value="{{ item.quantity }}"
+                                               class="form-control text-center mx-2"
+                                               style="width:60px;"
+                                               readonly>
+
+                                        <a href="{{ url_for('increase_quantity',
+                                                        product_id=item.product_id) }}"
+                                           class="btn btn-outline-secondary btn-sm">
+
+                                            +
+
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                                <td>
+
+                                    <strong>
+
+                                        ₹{{ item.price * item.quantity }}
+
+                                    </strong>
+
+                                </td>
+
+                                <td>
+
+                                    <a href="{{ url_for('remove_cart_item',
+                                                    product_id=item.product_id) }}"
+                                       class="btn btn-danger btn-sm">
+
+                                        <i class="fas fa-trash"></i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                                    </div>
+
+            </div>
+
+        </div>
+
+        <!-- Order Summary -->
+
+        <div class="col-lg-4">
+
+            <div class="card shadow border-0 rounded-4 sticky-top"
+                 style="top:20px;">
+
+                <div class="card-header bg-success text-white">
+
+                    <h4 class="mb-0">
+
+                        Order Summary
+
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>Subtotal</span>
+
+                        <strong id="subtotalAmount">
+                            ₹{{ grand_total }}
+                        </strong>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>Shipping</span>
+
+                        <strong class="text-success">
+
+                            FREE
+
+                        </strong>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+
+                        <h4>Total</h4>
+
+                        <h4 class="text-success" id="totalAmount">
+
+                            ₹{{ grand_total }}
+
+                        </h4>
+
+                    </div>
+
+                    <div class="d-grid mt-4">
+
+                        <a href="{{ url_for('checkout') }}"
+                           class="btn btn-success btn-lg">
+
+                            <i class="fas fa-credit-card"></i>
+
+                            Proceed to Checkout
+
+                        </a>
+
+                    </div>
+
+                    <div class="d-grid mt-3">
+
+                        <a href="{{ url_for('dashboard') }}"
+                           class="btn btn-outline-primary">
+
+                            Continue Shopping
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    </form>
+
+    {% else %}
+
+    <!-- Empty Cart -->
+
+    <div class="row">
+
+        <div class="col-lg-8 mx-auto">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-body text-center p-5">
+
+                    <i class="fas fa-shopping-cart fa-5x text-muted mb-4"></i>
+
+                    <h2>
+
+                        Your Cart is Empty
+
+                    </h2>
+
+                    <p class="text-muted">
+
+                        Looks like you haven't added any products yet.
+
+                    </p>
+
+                    <a href="{{ url_for('dashboard') }}"
+                       class="btn btn-primary btn-lg mt-3">
+
+                        Continue Shopping
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+<style>
+
+body{
+    background:#f8f9fa;
+}
+
+/* Product Image */
+
+.table img{
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.table img:hover{
+
+    transform:scale(1.08);
+
+}
+
+/* Cards */
+
+.card{
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+
+}
+
+/* Quantity Buttons */
+
+.btn-outline-secondary{
+
+    width:38px;
+    height:38px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* Summary */
+
+.card-header{
+
+    font-weight:bold;
+
+    font-size:20px;
+
+}
+
+/* Total */
+
+.text-success{
+
+    font-weight:bold;
+
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+    .table td,
+    .table th{
+
+        vertical-align:middle;
+
+        font-size:14px;
+
+    }
+
+    .table img{
+
+        width:70px;
+
+        height:70px;
+
+    }
+
+}
+
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const checkboxes = document.querySelectorAll(".cart-check");
+    const subtotal = document.getElementById("subtotalAmount");
+    const total = document.getElementById("totalAmount");
+
+    function updateTotal() {
+
+        let allTotal = 0;
+        let selectedTotal = 0;
+        let selectedCount = 0;
+
+        checkboxes.forEach(cb => {
+
+            const price = parseFloat(cb.dataset.price);
+
+            allTotal += price;
+
+            if (cb.checked) {
+                selectedTotal += price;
+                selectedCount++;
+            }
+
+        });
+
+        const finalAmount =
+            selectedCount > 0
+            ? selectedTotal
+            : allTotal;
+
+        subtotal.innerText = "₹" + finalAmount.toFixed(2);
+        total.innerText = "₹" + finalAmount.toFixed(2);
+    }
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", updateTotal);
+    });
+
+    updateTotal();
+
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="custom-card">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h2 class="page-title mb-1">
+                    Customer Orders
+                </h2>
+
+                <p class="page-subtitle mb-0">
+                    View all orders placed by customers.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>Order ID</th>
+                        <th>User ID</th>
+                        <th>Payment ID</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for order in orders %}
+
+                    <tr>
+
+                        <td>
+                            #{{ order.order_id }}
+                        </td>
+
+                        <td>
+                            {{ order.user_id }}
+                        </td>
+
+                        <td>
+                            {{ order.razorpay_payment_id }}
+                        </td>
+
+                        <td>
+                            <strong class="text-success">
+                                ₹{{ order.amount }}
+                            </strong>
+                        </td>
+
+                        <td>
+
+                            {% if order.payment_status == 'Success' %}
+
+                            <span class="badge bg-success">
+                                Success
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-danger">
+                                Failed
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {{ order.created_at }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="mt-4">
+
+            <a href="{{ url_for('admin_dashboard') }}"
+               class="btn btn-outline-secondary">
+
+                Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

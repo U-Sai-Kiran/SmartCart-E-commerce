@@ -1,0 +1,270 @@
+{% extends "user/base.html" %}
+
+{% block title %}About SmartCart{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- Hero Section -->
+
+    <div class="custom-card text-center mb-5">
+
+        <h1 class="page-title mb-3">
+            About SmartCart
+        </h1>
+
+        <p class="page-subtitle fs-5">
+
+            SmartCart is a modern e-commerce platform designed to provide
+            a seamless, secure, and enjoyable shopping experience for customers.
+
+        </p>
+
+    </div>
+
+    <!-- Mission & Vision -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-6">
+
+            <div class="custom-card h-100">
+
+                <div class="text-center mb-3">
+
+                    <i class="fas fa-bullseye fa-3x text-primary"></i>
+
+                </div>
+
+                <h3 class="text-center mb-3">
+                    Our Mission
+                </h3>
+
+                <p class="text-muted text-center">
+
+                    To provide customers with high-quality products,
+                    secure payments, and a smooth shopping experience
+                    through innovative technology.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="custom-card h-100">
+
+                <div class="text-center mb-3">
+
+                    <i class="fas fa-eye fa-3x text-success"></i>
+
+                </div>
+
+                <h3 class="text-center mb-3">
+                    Our Vision
+                </h3>
+
+                <p class="text-muted text-center">
+
+                    To become a trusted online shopping platform
+                    that connects customers with the best products
+                    while ensuring convenience and reliability.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Why Choose Us -->
+
+    <div class="custom-card mb-5">
+
+        <h2 class="page-title text-center mb-4">
+
+            Why Choose SmartCart?
+
+        </h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+
+                <div class="text-center">
+
+                    <i class="fas fa-lock fa-3x text-primary mb-3"></i>
+
+                    <h5>Secure Payments</h5>
+
+                    <p class="text-muted">
+
+                        Safe and secure payment gateway integration.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="text-center">
+
+                    <i class="fas fa-shipping-fast fa-3x text-success mb-3"></i>
+
+                    <h5>Fast Delivery</h5>
+
+                    <p class="text-muted">
+
+                        Quick and reliable delivery services.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="text-center">
+
+                    <i class="fas fa-star fa-3x text-warning mb-3"></i>
+
+                    <h5>Quality Products</h5>
+
+                    <p class="text-muted">
+
+                        Carefully selected products from trusted sellers.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="text-center">
+
+                    <i class="fas fa-headset fa-3x text-danger mb-3"></i>
+
+                    <h5>24/7 Support</h5>
+
+                    <p class="text-muted">
+
+                        Dedicated customer support whenever you need help.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Statistics -->
+
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+
+            <div class="custom-card text-center">
+
+                <h2 class="text-primary fw-bold">
+                    1000+
+                </h2>
+
+                <p class="mb-0">
+                    Products
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="custom-card text-center">
+
+                <h2 class="text-success fw-bold">
+                    500+
+                </h2>
+
+                <p class="mb-0">
+                    Customers
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="custom-card text-center">
+
+                <h2 class="text-warning fw-bold">
+                    300+
+                </h2>
+
+                <p class="mb-0">
+                    Orders
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="custom-card text-center">
+
+                <h2 class="text-danger fw-bold">
+                    99%
+                </h2>
+
+                <p class="mb-0">
+                    Satisfaction
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Call To Action -->
+
+    <div class="custom-card text-center">
+
+        <h2 class="mb-3">
+
+            Start Shopping With SmartCart
+
+        </h2>
+
+        <p class="text-muted mb-4">
+
+            Discover quality products, secure payments,
+            and an amazing shopping experience.
+
+        </p>
+
+        <a href="{{ url_for('register') }}"
+           class="btn btn-primary px-4">
+
+            Get Started
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Product Details{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-10">
+
+            <div class="custom-card">
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-5 text-center">
+
+                        <img src="{{ url_for('static',
+                            filename='uploads/product_images/' + product.image) }}"
+                            class="img-fluid rounded-4 shadow-sm border"
+                            style="max-height:400px; object-fit:contain;"
+                            alt="{{ product.name }}">
+
+                    </div>
+
+                    <div class="col-md-7">
+
+                        <span class="badge bg-primary mb-3">
+
+                            {{ product.category }}
+
+                        </span>
+
+                        <h2 class="fw-bold mb-3">
+
+                            {{ product.name }}
+
+                        </h2>
+
+                        <p class="text-muted">
+
+                            {{ product.description }}
+
+                        </p>
+
+                        <hr>
+
+                        <h3 class="text-success fw-bold mb-4">
+
+                            ₹{{ product.price }}
+
+                        </h3>
+
+                        <div class="d-flex gap-2 flex-wrap">
+
+                            <a href="{{ url_for('update_item',
+                                item_id=product.product_id) }}"
+                               class="btn btn-warning">
+
+                                <i class="fas fa-edit"></i>
+                                Edit Product
+
+                            </a>
+
+                            <a href="{{ url_for('item_list') }}"
+                               class="btn btn-outline-secondary">
+
+                                <i class="fas fa-arrow-left"></i>
+                                Back to Products
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

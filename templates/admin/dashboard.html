@@ -1,0 +1,594 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+
+<div class="hero-section mb-5">
+
+    <div class="hero-content">
+
+        <span class="hero-badge">
+            <i class="fas fa-shield-alt"></i>
+            Enterprise Administration Dashboard
+        </span>
+
+        <h1 class="hero-title">
+            Welcome, {{ admin_name }}
+        </h1>
+
+        <p class="hero-text">
+            Manage products, orders, categories, customers, and
+            administration workflow through a premium corporate dashboard.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="{{ url_for('item_list') }}"
+               class="btn btn-light btn-lg">
+
+                <i class="fas fa-box-open"></i>
+                Manage Products
+
+            </a>
+
+            <a href="{{ url_for('admin_orders') }}"
+               class="btn btn-outline-light btn-lg">
+
+                <i class="fas fa-shopping-bag"></i>
+                View Orders
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ADMIN NOTICE BAR -->
+
+<div class="notice-bar mb-5">
+
+    <marquee behavior="scroll"
+             direction="left">
+
+        📢 Admin Notice:
+        Keep product prices updated •
+        Monitor stock availability •
+        Review pending orders daily •
+        Maintain accurate product descriptions •
+        Ensure smooth customer experience
+
+    </marquee>
+
+</div>
+
+<!-- BUSINESS OVERVIEW -->
+
+<div class="mb-4">
+
+    <h2 class="page-title">
+        Business Overview
+    </h2>
+
+    <p class="page-subtitle">
+        Real-time insights into your SmartCart business performance.
+    </p>
+
+</div>
+
+<div class="row g-4">
+
+    <!-- Products -->
+
+    <div class="col-md-3">
+
+        <div class="overview-card">
+
+            <div class="overview-icon bg-primary">
+
+                <i class="fas fa-box"></i>
+
+            </div>
+
+            <div>
+
+                <h3>{{ total_products }}</h3>
+
+                <p>Total Products</p>
+
+                <span class="growth positive">
+                    +12%
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Orders -->
+
+    <div class="col-md-3">
+
+        <div class="overview-card">
+
+            <div class="overview-icon bg-success">
+
+                <i class="fas fa-shopping-bag"></i>
+
+            </div>
+
+            <div>
+
+                <h3>{{ total_orders }}</h3>
+
+                <p>Total Orders</p>
+
+                <span class="growth positive">
+                    +18%
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Customers -->
+
+    <div class="col-md-3">
+
+        <div class="overview-card">
+
+            <div class="overview-icon bg-warning">
+
+                <i class="fas fa-users"></i>
+
+            </div>
+
+            <div>
+
+                <h3>{{ total_customers }}</h3>
+
+                <p>Customers</p>
+
+                <span class="growth positive">
+                    +9%
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Revenue -->
+
+    <div class="col-md-3">
+
+        <div class="overview-card">
+
+            <div class="overview-icon bg-danger">
+
+                <i class="fas fa-indian-rupee-sign"></i>
+
+            </div>
+
+            <div>
+
+                <h3>₹{{ total_revenue }}</h3>
+
+                <p>Total Revenue</p>
+
+                <span class="growth positive">
+                    +22%
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="custom-card mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title mb-1">
+                Quick Actions
+            </h2>
+
+            <p class="page-subtitle mb-0">
+                Frequently used administrative shortcuts.
+            </p>
+
+        </div>
+
+        <i class="fas fa-bolt fa-2x text-primary"></i>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+
+            <a href="{{ url_for('add_item') }}"
+               class="action-card text-decoration-none">
+
+                <i class="fas fa-plus-circle"></i>
+
+                <h5>Add Product</h5>
+
+                <p>Create a new product listing.</p>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <a href="{{ url_for('item_list') }}"
+               class="action-card text-decoration-none">
+
+                <i class="fas fa-box-open"></i>
+
+                <h5>View Products</h5>
+
+                <p>Manage existing inventory.</p>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <a href="{{ url_for('admin_orders') }}"
+               class="action-card text-decoration-none">
+
+                <i class="fas fa-shopping-bag"></i>
+
+                <h5>Orders</h5>
+
+                <p>Track customer purchases.</p>
+
+            </a>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <a href="{{ url_for('admin_profile') }}"
+               class="action-card text-decoration-none">
+
+                <i class="fas fa-user-shield"></i>
+
+                <h5>Profile</h5>
+
+                <p>Update account information.</p>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ADMINISTRATION MODULES -->
+
+<div class="mt-5 mb-4">
+
+    <h2 class="page-title">
+        Administration Modules
+    </h2>
+
+    <p class="page-subtitle">
+        Access and manage every part of your SmartCart platform.
+    </p>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon products">
+
+                <i class="fas fa-box-open"></i>
+
+            </div>
+
+            <h4>Product Management</h4>
+
+            <p>
+                Add, edit and manage store products.
+            </p>
+
+            <a href="{{ url_for('item_list') }}"
+               class="btn btn-primary">
+
+                Manage
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon orders">
+
+                <i class="fas fa-shopping-bag"></i>
+
+            </div>
+
+            <h4>Order Management</h4>
+
+            <p>
+                Monitor and process customer orders.
+            </p>
+
+            <a href="{{ url_for('admin_orders') }}"
+               class="btn btn-success">
+
+                Orders
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon users">
+
+                <i class="fas fa-users"></i>
+
+            </div>
+
+            <h4>Customer Center</h4>
+
+            <p>
+                Track users and customer activity.
+            </p>
+
+            <button class="btn btn-warning">
+
+                Customers
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="module-card">
+
+            <div class="module-icon admin">
+
+                <i class="fas fa-user-shield"></i>
+
+            </div>
+
+            <h4>Admin Profile</h4>
+
+            <p>
+                Update profile and account settings.
+            </p>
+
+            <a href="{{ url_for('admin_profile') }}"
+               class="btn btn-danger">
+
+                Profile
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- QUICK ACTIONS -->
+
+
+
+<!-- RECENT ADMIN PRIORITIES -->
+
+<div class="custom-card mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title mb-1">
+                Recent Admin Priorities
+            </h2>
+
+            <p class="page-subtitle mb-0">
+                Important tasks requiring administrator attention.
+            </p>
+
+        </div>
+
+        <i class="fas fa-tasks fa-2x text-warning"></i>
+
+    </div>
+
+    <div class="priority-item">
+
+        <div>
+            <h6>Review Pending Orders</h6>
+            <small>Check newly placed customer orders.</small>
+        </div>
+
+        <span class="badge bg-danger">
+            High
+        </span>
+
+    </div>
+
+    <div class="priority-item">
+
+        <div>
+            <h6>Update Product Inventory</h6>
+            <small>Verify available stock quantities.</small>
+        </div>
+
+        <span class="badge bg-warning text-dark">
+            Medium
+        </span>
+
+    </div>
+
+    <div class="priority-item">
+
+        <div>
+            <h6>Monitor Customer Activity</h6>
+            <small>Track user engagement and purchases.</small>
+        </div>
+
+        <span class="badge bg-success">
+            Completed
+        </span>
+
+    </div>
+
+    <div class="priority-item">
+
+        <div>
+            <h6>Verify Payment Transactions</h6>
+            <small>Confirm successful order payments.</small>
+        </div>
+
+        <span class="badge bg-primary">
+            Ongoing
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- STORE PERFORMANCE -->
+
+<div class="custom-card mt-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="page-title mb-1">
+                Store Performance
+            </h2>
+
+            <p class="page-subtitle mb-0">
+                Performance indicators across major business operations.
+            </p>
+
+        </div>
+
+        <i class="fas fa-chart-line fa-2x text-success"></i>
+
+    </div>
+
+    <div class="performance-item">
+
+        <div class="d-flex justify-content-between mb-2">
+
+            <span>Product Management</span>
+
+            <strong>92%</strong>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar bg-primary"
+                 style="width:92%">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="performance-item">
+
+        <div class="d-flex justify-content-between mb-2">
+
+            <span>Order Processing</span>
+
+            <strong>85%</strong>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar bg-success"
+                 style="width:85%">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="performance-item">
+
+        <div class="d-flex justify-content-between mb-2">
+
+            <span>Customer Experience</span>
+
+            <strong>95%</strong>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar bg-warning"
+                 style="width:95%">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="performance-item">
+
+        <div class="d-flex justify-content-between mb-2">
+
+            <span>Revenue Growth</span>
+
+            <strong>88%</strong>
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-bar bg-danger"
+                 style="width:88%">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

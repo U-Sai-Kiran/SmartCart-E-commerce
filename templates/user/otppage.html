@@ -1,0 +1,170 @@
+{% extends "user/base.html" %}
+
+{% block title %}Verify OTP | Smart Card{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center py-5">
+
+    <div class="col-lg-6 col-md-8">
+
+        <div class="custom-card">
+
+            <!-- Header -->
+
+            <div class="text-center mb-4">
+
+                <div class="mb-3">
+
+                    <i class="bi bi-shield-lock-fill text-success"
+                       style="font-size:65px;"></i>
+
+                </div>
+
+                <h2 class="fw-bold">
+                    Verify Your Email
+                </h2>
+
+                <p class="text-muted">
+
+                    We've sent a 6-digit verification code to
+
+                    <br>
+
+                    <strong>{{ email }}</strong>
+
+                </p>
+
+            </div>
+
+            <!-- Flash Messages -->
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+
+                        <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                            {{ message }}
+
+                            <button class="btn-close"
+                                    data-bs-dismiss="alert"></button>
+
+                        </div>
+
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <!-- OTP Form -->
+
+  <form method="POST">
+
+    <!-- OTP -->
+
+    <div class="mb-3">
+
+        <label class="form-label fw-semibold">
+            Enter OTP
+        </label>
+
+        <input type="text"
+               name="otp"
+               maxlength="6"
+               minlength="6"
+               class="form-control text-center fs-3 fw-bold"
+               placeholder="------"
+               required>
+
+        <small class="text-muted">
+            Enter the OTP sent to your email.
+        </small>
+
+    </div>
+
+    <!-- Password -->
+
+    <div class="mb-3">
+
+        <label class="form-label fw-semibold">
+            Password
+        </label>
+
+        <input type="password"
+               name="password"
+               class="form-control"
+               placeholder="Create Password"
+               required>
+
+    </div>
+
+    <!-- Confirm Password -->
+
+    <div class="mb-4">
+
+        <label class="form-label fw-semibold">
+            Confirm Password
+        </label>
+
+        <input type="password"
+               name="confirm_password"
+               class="form-control"
+               placeholder="Confirm Password"
+               required>
+
+    </div>
+
+    <div class="d-grid">
+
+        <button class="btn btn-success btn-lg">
+
+            <i class="bi bi-check-circle-fill"></i>
+
+            Verify OTP & Create Account
+
+        </button>
+
+    </div>
+
+</form>
+            <div class="text-center">
+
+                <p class="mb-2">
+
+                    Didn't receive the OTP?
+
+                </p>
+
+                <a href="{{ url_for('resend_otp') }}"
+                   class="btn btn-outline-primary">
+
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                    Resend OTP
+
+                </a>
+
+            </div>
+
+            <hr>
+
+            <div class="text-center">
+
+                <a href="{{ url_for('register') }}"
+                   class="text-decoration-none">
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Back to Registration
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

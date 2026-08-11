@@ -1,0 +1,99 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Verify OTP{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-5 col-md-7">
+
+        <div class="custom-card">
+
+            <div class="text-center mb-4">
+
+                <i class="fas fa-shield-alt fa-4x text-primary mb-3"></i>
+
+                <h2 class="page-title">
+
+                    Verify OTP
+
+                </h2>
+
+                <p class="page-subtitle">
+
+                    Enter the OTP sent to your email and create your password
+
+                </p>
+
+            </div>
+
+            <form method="POST"
+                  action="{{ url_for('verify_otp') }}">
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+
+                        Enter OTP
+
+                    </label>
+
+                    <input type="text"
+                           name="otp"
+                           class="form-control"
+                           placeholder="Enter OTP"
+                           required>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+
+                        Create Password
+
+                    </label>
+
+                    <input type="password"
+                           name="password"
+                           class="form-control"
+                           placeholder="Create a secure password"
+                           required>
+
+                </div>
+
+                <div class="d-grid">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fas fa-check-circle"></i>
+                        Verify & Register
+
+                    </button>
+
+                </div>
+
+            </form>
+
+            <hr>
+
+            <div class="text-center">
+
+                <a href="{{ url_for('admin_login') }}"
+                   class="text-decoration-none fw-bold">
+
+                    Back to Login
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

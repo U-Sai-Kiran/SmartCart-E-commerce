@@ -1,0 +1,235 @@
+{% extends "user/base.html" %}
+
+{% block title %}Home | Smart Card{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+
+<section class="py-5">
+
+    <div class="row align-items-center">
+
+        <div class="col-lg-6">
+
+            <span class="badge bg-primary mb-3 px-3 py-2">
+                Welcome to Smart Card
+            </span>
+
+            <h1 class="display-4 fw-bold mb-3">
+                Secure Smart Card Management System
+            </h1>
+
+            <p class="lead text-muted mb-4">
+                Manage your smart card securely with OTP verification,
+                fast registration, secure authentication, and a modern
+                user-friendly interface.
+            </p>
+
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-3">
+                <i class="bi bi-person-plus-fill"></i>
+                Register
+            </a>
+
+            <a href="{{ url_for('login') }}" class="btn btn-outline-primary btn-lg">
+                <i class="bi bi-box-arrow-in-right"></i>
+                Login
+            </a>
+
+        </div>
+
+        <div class="col-lg-6 text-center mt-5 mt-lg-0">
+
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                 class="img-fluid"
+                 style="max-width:420px;">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Features -->
+
+<section class="py-5">
+
+    <div class="text-center mb-5">
+
+        <h2 class="fw-bold">
+            Why Choose Smart Card?
+        </h2>
+
+        <p class="text-muted">
+            Secure, Fast and Reliable Platform
+        </p>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-md-4">
+
+            <div class="custom-card text-center h-100">
+
+                <div class="mb-3">
+
+                    <i class="bi bi-shield-lock-fill text-primary"
+                       style="font-size:50px;"></i>
+
+                </div>
+
+                <h4>Secure Authentication</h4>
+
+                <p class="text-muted">
+
+                    OTP based registration and secure login system
+                    to protect user accounts.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="custom-card text-center h-100">
+
+                <div class="mb-3">
+
+                    <i class="bi bi-lightning-charge-fill text-warning"
+                       style="font-size:50px;"></i>
+
+                </div>
+
+                <h4>Fast Processing</h4>
+
+                <p class="text-muted">
+
+                    Register quickly and manage smart card information
+                    without delays.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="custom-card text-center h-100">
+
+                <div class="mb-3">
+
+                    <i class="bi bi-phone-fill text-success"
+                       style="font-size:50px;"></i>
+
+                </div>
+
+                <h4>Responsive Design</h4>
+
+                <p class="text-muted">
+
+                    Works perfectly on desktops,
+                    tablets and mobile devices.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Statistics -->
+
+<section class="py-5">
+
+    <div class="row text-center">
+
+        <div class="col-md-3">
+
+            <div class="custom-card">
+
+                <h2 class="text-primary fw-bold">1000+</h2>
+
+                <p class="mb-0">Registered Users</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="custom-card">
+
+                <h2 class="text-success fw-bold">99%</h2>
+
+                <p class="mb-0">Security</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="custom-card">
+
+                <h2 class="text-warning fw-bold">24/7</h2>
+
+                <p class="mb-0">Support</p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="custom-card">
+
+                <h2 class="text-danger fw-bold">100%</h2>
+
+                <p class="mb-0">Reliable</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- Call To Action -->
+
+<section class="py-5">
+
+    <div class="custom-card text-center">
+
+        <h2 class="fw-bold mb-3">
+
+            Ready to Get Started?
+
+        </h2>
+
+        <p class="text-muted mb-4">
+
+            Create your Smart Card account today and experience
+            secure digital identity management.
+
+        </p>
+
+        <a href="{{ url_for('register') }}"
+           class="btn btn-primary btn-lg">
+
+            Create Account
+
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "user/base.html" %}
+
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-header bg-success text-white text-center">
+                    <h3>Complete Your Payment</h3>
+                </div>
+
+                <div class="card-body text-center p-5">
+
+                    <h5>Total Amount</h5>
+
+                    <h1 class="text-success fw-bold">
+                        ₹{{ amount }}
+                    </h1>
+
+                    <button id="rzp-button"
+                            class="btn btn-success btn-lg mt-3">
+                        Pay Now
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+
+var options = {
+
+    "key": "{{ key_id }}",
+    "amount": "{{ amount * 100 }}",
+    "currency": "INR",
+    "name": "SmartCart",
+    "description": "Order Payment",
+    "order_id": "{{ order_id }}",
+
+    handler: function (response){
+
+        fetch("/verify-payment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            window.location.href = data.redirect_url;
+        });
+
+    }
+
+};
+
+var rzp = new Razorpay(options);
+
+document.getElementById('rzp-button').onclick = function(e){
+
+    rzp.open();
+    e.preventDefault();
+
+};
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Admin Profile{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8">
+
+        <div class="custom-card">
+
+            <div class="text-center mb-4">
+
+                {% if admin.profile_image %}
+
+                <img src="{{ url_for('static',
+                    filename='uploads/admin_profiles/' + admin.profile_image) }}"
+                    class="rounded-circle shadow border"
+                    width="150"
+                    height="150"
+                    style="object-fit:cover;">
+
+                {% else %}
+
+                <div class="bg-light rounded-circle d-inline-flex
+                            justify-content-center align-items-center shadow"
+                     style="width:150px;height:150px;">
+
+                    <i class="fas fa-user fa-4x text-secondary"></i>
+
+                </div>
+
+                {% endif %}
+
+                <h2 class="page-title mt-3">
+
+                    Admin Profile
+
+                </h2>
+
+                <p class="page-subtitle">
+
+                    Manage your account information
+
+                </p>
+
+            </div>
+
+            <form method="POST"
+                  action="{{ url_for('admin_profile') }}"
+                  enctype="multipart/form-data">
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+
+                        Full Name
+
+                    </label>
+
+                    <input type="text"
+                           name="name"
+                           class="form-control"
+                           value="{{ admin.name }}"
+                           required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+
+                        Email Address
+
+                    </label>
+
+                    <input type="email"
+                           name="email"
+                           class="form-control"
+                           value="{{ admin.email }}"
+                           required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+
+                        New Password
+
+                    </label>
+
+                    <input type="password"
+                           name="password"
+                           class="form-control"
+                           placeholder="Leave blank to keep current password">
+
+                </div>
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+
+                        Upload New Profile Image
+
+                    </label>
+
+                    <input type="file"
+                           name="profile_image"
+                           class="form-control"
+                           accept="image/*">
+
+                </div>
+
+                <div class="d-grid gap-2">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+
+                        <i class="fas fa-save"></i>
+                        Update Profile
+
+                    </button>
+
+                    <a href="{{ url_for('admin_dashboard') }}"
+                       class="btn btn-outline-secondary">
+
+                        Back to Dashboard
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
