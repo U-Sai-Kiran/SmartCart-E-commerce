@@ -149,6 +149,100 @@ def admin_login():
     flash("Login Successful!", "success")
     return redirect('/admin-dashboard')
 
+@app.route('/admin-forgot-password', methods=['GET', 'POST'])
+def admin_forgot_password():
+
+    if request.method == 'GET':
+        return render_template('admin/admin_forgot_password.html')
+
+    email = request.form['email']
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM admin WHERE email=?",
+        (email,)
+    )
+
+    admin = cursor.fetchone()
+
+    conn.close()
+
+    if not admin:
+        flash("Email not found!", "danger")
+        return redirect('/admin-forgot-password')
+
+    otp = random.randint(100000, 999999)
+
+    session['admin_reset_email'] = email
+    session['admin_reset_otp'] = otp
+
+    message = Message(
+        subject="SmartCart Admin Password Reset OTP",
+        recipients=[email]
+    )
+
+    message.body = f"""
+Hello Admin,
+
+Your Password Reset OTP is:
+
+{otp}
+
+Do not share this OTP with anyone.
+"""
+
+    mail.send(message)
+
+    flash("OTP sent successfully!", "success")
+
+    return redirect('/admin-reset-password')
+
+@app.route('/admin-reset-password', methods=['GET', 'POST'])
+def admin_reset_password():
+
+    if request.method == 'GET':
+        return render_template('admin/admin_reset_password.html')
+
+    otp = request.form['otp']
+    password = request.form['password']
+    confirm_password = request.form['confirm_password']
+
+    if int(otp) != session.get('admin_reset_otp'):
+        flash("Invalid OTP!", "danger")
+        return redirect('/admin-reset-password')
+
+    if password != confirm_password:
+        flash("Passwords do not match!", "danger")
+        return redirect('/admin-reset-password')
+
+    hashed_password = bcrypt.hashpw(
+        password.encode('utf-8'),
+        bcrypt.gensalt()
+    )
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "UPDATE admin SET password=? WHERE email=?",
+        (
+            hashed_password,
+            session['admin_reset_email']
+        )
+    )
+
+    conn.commit()
+    conn.close()
+
+    session.pop('admin_reset_otp', None)
+    session.pop('admin_reset_email', None)
+
+    flash("Password reset successful. Please login.", "success")
+
+    return redirect('/admin-login')
+
 @app.route('/admin-dashboard')
 def admin_dashboard():
 
